@@ -5,7 +5,7 @@
 	//session_start();
 	//var_dump($_SESSION);
 	require("classes/Session.class.php");
-	SessionManager::sessionStart("vr20", 0, "/~andrus.rinde/", "tigu.hk.tlu.ee");
+	SessionManager::sessionStart("vr20", 0, "/~mikk.herde/", "tigu.hk.tlu.ee");
 	
 	//kas pole sisseloginud
 	if(!isset($_SESSION["userid"])){
@@ -21,8 +21,9 @@
 
 	require("../../../../configuration.php");
 	require("fnc_gallery.php");
+	$privacy = 3;
 	$page = 1; //vaikimisi määran lehe numbriks 1 (see on vajalik näiteks siis, kui esimest korda galerii avatakse ja lehtedega pole veel tegeletud)
-	$limit = 5;//mitu pilti ühele lehele soovin mahutada. Reaalelus oleks normaalne palju suurem number, näiteks 30 jne
+	$limit = 8;//mitu pilti ühele lehele soovin mahutada. Reaalelus oleks normaalne palju suurem number, näiteks 30 jne
 	$picCount = countPrivatePics();//küsin kõigi näidatavate piltide arvu, et teada, palju lehekülgi üldse olla võiks. Parameetriks piltide privaatsus. Funktsioon ise näitena allpool.
 	//echo $picCount;
 	//kui nüüd tuli ka lehe aadressis GET meetodil parameeter page, siis kontrollin, kas see on reaalne ja, kui pole, siis pane jõuga lehe numbriks 1 või viimase võimaliku lehe numbri
@@ -34,7 +35,7 @@
 	  $page = $_GET["page"];
 	}
 	
-	$privateThumbnails = readAllMyPictureThumbsPage($page, $limit);
+	$privateThumbnails = readAllMyPictureThumbsPage($privacy, $page, $limit);
 	
 ?>
 <!DOCTYPE html>
@@ -42,6 +43,8 @@
 <head>
 	<meta charset="utf-8">
 	<title>Veebirakendused ja nende loomine 2020</title>
+	<link rel="stylesheet" type="text/css" href="style/gallery.css">
+
 </head>
 <body>
 	<h1>Minu oma pildid</h1>
